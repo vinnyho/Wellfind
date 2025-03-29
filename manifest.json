@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Job Search Helper",
+  "version": "1.0",
+  "description": "Helps automate job search by scraping recruiter data",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://wellfound.com/company/*"
+      ],
+      "js": [
+        "src/components/scrape.js",
+        "src/content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources":  ["src/components/*.js", "styles/output.css"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "storage": {
+    "type": "sync"
+  }
+  
+  
+}

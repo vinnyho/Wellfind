@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        font-family: "Oswald", sans-serif;
+      }
+
+      body {
+        width: 400px;
+        height: 500px;
+        margin: 0;
+        padding: 0;
+        background-color: white;
+        overflow: auto;
+      }
+    </style>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Job Search Helper</title>
+  </head>
+  <body>
+    <div class="w-[400px] h-[500px] overflow-auto p-2 bg-white flex flex-col">
+      <nav class="flex flex-row">
+        <h1 class="underline text-2xl font-oswald select-none">Wellfind</h1>
+        <nav id="buttons-container" class="flex flex-row">
+          <button
+            class="px-3 py-1 font-oswald text-base transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none"
+            id="scrape-btn"
+          >
+            Scrape
+          </button>
+          <button
+            class="px-3 py-1 font-oswald text-base transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none"
+            id="email-btn"
+          >
+            Email
+          </button>
+          <button
+            class="px-3 py-1 font-oswald text-base transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none"
+            id="saved-btn"
+          >
+            Saved
+          </button>
+          <button
+            class="px-3 py-1 font-oswald text-base transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none"
+            id="settings-btn"
+          >
+            Settings
+          </button>
+        </nav>
+      </nav>
+
+      <div id="scrape-container" class="section flex pt-3">
+        <div class="flex justify-end pr-2 mb-2">
+          <button
+            class="font-oswald p-1 text-base transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none bg-blue-400 rounded"
+            id="scrape-emails-btn"
+          >
+            Scrape Emails
+          </button>
+        </div>
+        <div id="table-container">
+          <table
+            id="table"
+            class="table-fixed w-full border-collapse border border-gray-300 text-[0.6rem]"
+          >
+            <thead id="thead">
+              <tr class="bg-gray-200">
+                <th class="w-8 border border-gray-300 p-1 text-center">Name</th>
+                <th class="w-10 border border-gray-300 p-1 text-center">
+                  Position
+                </th>
+                <th class="w-12 border border-gray-300 p-1 text-center">
+                  Email
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+
+      <div
+        id="email-container"
+        class="section hidden flex flex-col space-y-3 pt-3"
+      >
+        <input
+          type="text"
+          class="h-6 border border-black"
+          id="email-field"
+          placeholder=" Email"
+        />
+        <textarea
+          type="text"
+          class="h-7 border border-black"
+          id="email-subject"
+          placeholder=" Subject"
+        ></textarea>
+        <textarea
+          id="email-body"
+          class="h-20 border border-black"
+          placeholder=" Body"
+        ></textarea>
+        <button
+          id="send-btn"
+          class="mx-auto inline-block p-1 pr-2 pl-2 text-xl transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none bg-blue-400 rounded"
+        >
+          Send
+        </button>
+        <button
+          id="ai-btn"
+          class="mx-auto inline-block p-1 pr-2 pl-2 text-xl transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none bg-gray-200 rounded"
+        >
+          Generate AI
+        </button>
+      </div>
+      <div id="saved-container" class="section hidden pt-3">
+        <table
+          id="saved-table-container"
+          class="table-fixed w-full border-collapse border border-gray-300 text-[0.7rem]"
+        >
+          <thead>
+            <tr class="bg-gray-200">
+              <th class="w-12 border border-gray-300 p-1 text-center">Co.</th>
+              <th class="w-16 border border-gray-300 p-1 text-center">Email</th>
+              <th class="w-11 border border-gray-300 p-1 text-center">Date</th>
+              <th class="w-10 border border-gray-300 p-1 text-center">
+                Status
+              </th>
+              <th class="w-8 border border-gray-300 p-1 text-center">❌</th>
+            </tr>
+          </thead>
+          <tbody id="saved-tbody"></tbody>
+        </table>
+      </div>
+
+      <div
+        id="settings-container"
+        class="section hidden flex-col p-3 space-y-3"
+      >
+        <input
+          id="hunter-api-key"
+          class="border border-black text-base text-center"
+          type="text"
+          placeholder="Hunter.io API Key"
+        />
+
+        <input
+          id="cohere-api-key"
+          class="border border-black text-base text-center"
+          type="text"
+          placeholder="Cohere API Key"
+        />
+
+        <button
+          id="api-key-submit"
+          class="mx-auto inline-block p-1 pr-2 pl-2 text-xl transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none bg-blue-400 rounded"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </body>
+  <script src="src/components/email.js"></script>
+  <script src="src/components/scrape.js"></script>
+  <script src="src/components/save.js"></script>
+  <script src="src/components/settings.js"></script>
+  <script src="src/popup.js"></script>
+  <script src="src/background.js"></script>
+  <script src="src/content.js"></script>
+</html>
