@@ -5,7 +5,8 @@
   "description": "Helps automate job search by scraping recruiter data",
   "permissions": [
     "activeTab",
-    "storage"
+    "storage",
+      "unlimitedStorage"
   ],
   "background": {
     "service_worker": "src/background.js"
@@ -27,7 +28,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources":  ["src/components/*.js", "styles/output.css"],
+      "resources":  ["src/components/lib/*.js","src/components/*.js", "styles/output.css"],
       "matches": ["<all_urls>"]
     }
   ],

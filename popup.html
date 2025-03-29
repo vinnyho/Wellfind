@@ -7,10 +7,15 @@
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
     <link
       href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap"
       rel="stylesheet"
     />
+    <script src="src/components/lib/pdf.min.js"></script>
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'src/components/lib/pdf.worker.min.js';
+    </script>
     <style>
       * {
         font-family: "Oswald", sans-serif;
@@ -163,7 +168,11 @@
           type="text"
           placeholder="Cohere API Key"
         />
-
+    
+        <label for="resume-upload" class="mx-auto inline-block p-2 text-xl transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none bg-gray-300 rounded cursor-pointer">
+          Upload Resume
+      </label>
+      <input id="resume-upload" type="file" accept=".pdf,.docx" class="hidden" />
         <button
           id="api-key-submit"
           class="mx-auto inline-block p-1 pr-2 pl-2 text-xl transform transition-all duration-300 ease-in-out hover:-translate-y-0.5 select-none bg-blue-400 rounded"

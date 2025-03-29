@@ -1,6 +1,7 @@
 let scrapedData = {};
 let hunterAPIKey = "";
 let cohereAPIKey = "";
+let resumeText = "";
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.action === "scrapedData") {
@@ -12,8 +13,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 
   if (request.action === "sentKey") {
-    hunterAPIKey = request.hunterKey;
-    cohereAPIKey = request.cohereKey;
+    console.log(request.resumeText);
+    hunterAPIKey = request.hunterKey || null;
+    cohereAPIKey = request.cohereKey || null;
+    resumeText = request.resumeText || "No resume uploaded";
   }
 
   if (request.action === "emailSent") {
@@ -35,7 +38,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
       body: JSON.stringify({
         model: "command-r-plus-08-2024",
         prompt: `Based on this description, write only two sentences explaining why I want to work at this company. Do not include any personal information or formalities like "your name" or "email." Just focus on why I would be excited to work at this company. Do not repeat the description.
-                The following is a description of a company: ${scrapedData.description}`,
+                The following is a description of a company: ${scrapedData.description}. The following is a resume: ${resumeText}`,
         max_tokens: 150,
         temperature: 0.7,
       }),
