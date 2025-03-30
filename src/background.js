@@ -13,7 +13,6 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   }
 
   if (request.action === "sentKey") {
-    console.log(request.resumeText);
     hunterAPIKey = request.hunterKey || null;
     cohereAPIKey = request.cohereKey || null;
     resumeText = request.resumeText || "No resume uploaded";
@@ -67,18 +66,22 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 });
 
 async function fetchEmails(companyName) {
-  let response = await fetch(
-    `https://api.hunter.io/v2/domain-search?company=${companyName}&api_key=${hunterAPIKey}`
-  );
-  let data = await response.json();
+  try {
+    let response = await fetch(
+      `https://api.hunter.io/v2/domain-search?company=${companyName}&api_key=${hunterAPIKey}`
+    );
+    let data = await response.json();
 
-  let employeesData = [];
-  data.data.emails.forEach((employee, index) => {
-    employeesData.push({
-      name: `${employee.first_name} ${employee.last_name}`,
-      email: employee.value,
-      position: employee.position,
+    let employeesData = [];
+    data.data.emails.forEach((employee, index) => {
+      employeesData.push({
+        name: `${employee.first_name} ${employee.last_name}`,
+        email: employee.value,
+        position: employee.position,
+      });
     });
-  });
+  } catch (error) {
+    console.log("Failed to fetch emails:", error);
+  }
   return employeesData;
 }
