@@ -6,7 +6,7 @@ This Chrome extension is designed to streamline job applications by integrating 
 ## Features
 - **Company Data Extraction**: Scrapes relevant company details from Wellfound at https://wellfound.com/company/*
 - **Hunter API Integration**: Retrieves company domains and employee positions to help users find hiring contacts
-- **Cohere API Integration**: Uses Cohere AI API to generate a professional email body by summarizing the company’s mission
+- **Cohere API Integration**: Uses Cohere AI API to analyze company fit and generate a professional email body with the company’s mission
 - **PDF Resume Parsing**: Extracts text from uploaded PDF resumes to analyze and match with company's mission
 - **Email Storage**: Saves sent emails for future reference using Chrome's `storage.sync`
 
